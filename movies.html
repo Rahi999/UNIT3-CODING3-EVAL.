@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movies</title><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Poppins:wght@300&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+      h1{
+        font-family: 'Poppins', sans-serif;
+      }
+    #wallet{
+      text-align: end;
+      font-family: 'Poppins', sans-serif;
+    }
+    #movies{
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 10px;
+      width: 80%;
+      margin: auto;
+    }
+    img{
+      height: 300px;
+      width: 250px;
+      border-radius: 10px;
+    }
+    #search{
+      margin-left: 30%;
+      height: 30px;
+      width: 300px;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 50px;
+      background-color: #3333;
+      color: teal;
+      font-weight: bold;
+    }
+    h5{
+      font-family: 'Poppins', sans-serif;
+    }
+    button{
+      font-family: 'Poppins', sans-serif;
+      margin-left: 20%;
+    }
+
+
+
+
+
+
+    </style>
+  </head>
+  <body>
+    <div id="navbar">
+      <h1>Movie List</h1>
+      <!-- Display the wallet amount here inside h1 tag with id as "wallet". Note only amount, no extra text. Like 500 not Rs 500 -->
+      <h1 id="wallet">0</h1>
+    </div>
+    <div id="search_bar">
+      <!-- input box for searching movies with id as "search" -->
+      <!-- No button should be there for searching movies, it should search with input  -->
+      <input oninput="debounce(main,1000)" type="text" id="search" placeholder="search Movies">
+    </div>
+
+    <div id="movies">
+      <!-- Append all searched movies here in grid format -->
+      <!-- Every movie card should have image, title and a book now button  -->
+      <!-- Book now buttons should have class "book_now"  -->
+    </div>
+  </body>
+</html>
+<script>
+let amount=localStorage.getItem("amount");
+document.querySelector("#wallet").innerText=amount;
+
+   // `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&q=${q}%202&key=${API}`
+
+   let API = 'AIzaSyA4boI_k6Oaw3vRx0Yt6b58uJgZonJU7bA'
+
+ let id;
+
+
+
+
+     async function main(){
+                            try{
+                                 const q = document.querySelector("#search").value;
+                                 const res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&q=${q}%202&key=${API}`);
+                                 const data = await res.json();
+                                 const movies = data.items;
+                                 //console.log(movies);
+                                 Display(movies)
+
+
+
+                            }catch(err){
+                              console.log("err :",err)
+                            }
+
+    }
+
+    var objArr=[]
+       function Display(data){
+         data.forEach(({snippet:{title,thumbnails:{high:{url}}}})=>{
+           
+          let div = document.querySelector("#movies");
+          let box = document.createElement("div");
+          let h5 = document.createElement("h5");
+          let img = document.createElement("img");
+          let button = document.createElement("button");
+          button.innerText="Book Now"
+          button.setAttribute("class","book_now")
+          button.addEventListener("click",set)
+           
+          img.src=url;
+          h5.innerText=title;
+          box.append(img,h5,button);
+          div.append(box)
+
+          function set(){
+            var obj = {
+              title,
+              url
+            }
+            objArr.push(obj);
+            console.log(objArr);
+            window.location.href="checkout.html"
+            localStorage.setItem("movie",JSON.stringify(objArr))
+          }
+
+
+         })
+       }
+
+
+
+     function debounce(func,delay){
+       if(id){
+         clearTimeout(id);
+       }
+       id=setTimeout(function(){
+         func();
+       },delay)
+     }
+
+</script>

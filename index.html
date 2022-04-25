@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Amount</title><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Poppins:wght@300&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+      #add-money{
+        height: 200px;
+        width: 500px;
+        border:  1px solid;
+        margin: auto;
+        text-align: center;
+        padding: 50px;
+        border-radius: 15px;
+        background-color: rgba(197, 183, 183, 0.2);
+        font-family: 'Poppins', sans-serif;
+
+      }
+      h1{
+        font-family: 'Poppins', sans-serif;
+      }
+      a{
+        text-decoration: none;
+        color: black;
+        font-family: 'Poppins', sans-serif;
+      }
+
+     #wallet{
+       text-align: end;
+       
+     }
+      #amount{
+        font-family: 'Poppins', sans-serif;
+        height: 30px;
+        width: 300px;
+        border-radius: 10px;
+      }
+      #add_to_wallet{
+        height: 30px;
+        width: 100px;
+        
+      }
+      #book_movies{
+        
+        height: 30px;
+        width: 300px;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div id="navbar">
+      <h1>Add Money to wallet</h1>
+      <!-- Display the wallet amount here inside h1 tag with id as "wallet". Note only amount, no extra text. Like 500 not Rs 500 -->
+      <h1 id="wallet">0</h1>
+    </div>
+    <div id="add-money">
+      <!-- input box for accepting money with id as "amount" -->
+      <!-- button with id as "add_to_wallet" -->
+      <!-- button with id as "book_movies" to go to movies.html -->
+      <input type="number" id="amount" placeholder="Enter Amount">
+      <button onclick="show()" id="add_to_wallet">Add to wallet</button>
+      <br><br><br><br>
+
+      <!-- <button id="book_movies"><a href="movies.html">Book movies</a></button> -->
+      <a href="movies.html"> <button id="book_movies">Book Movie</button></a>
+    </div>
+  </body>
+</html>
+<script>
+
+
+  function show(){
+    let amount = document.querySelector("#amount").value;
+    localStorage.setItem("amount",amount);
+    document.querySelector("#wallet").innerText = amount;
+
+  }
+
+
+
+
+
+
+</script>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Poppins:wght@300&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+   img{
+     height: 300px;
+     width: 400px;
+     border-radius: 10px;
+     
+     
+   }
+   #wallet{
+     text-align: end;
+     font-family: 'Poppins', sans-serif;
+   }
+   #user_name{
+     margin-left: 30%;
+
+   }
+   #confirm{
+     margin-left: 75%;
+   }
+   input{
+     height: 30px;
+     width: 300px;
+     border-radius: 10px;
+     font-family: 'Poppins', sans-serif;
+     background-color: #3333;
+     color: teal;
+     font-weight: bold;
+
+   }
+   button{
+     height: 30px;
+     width: 100px;
+
+   }
+    #movie{
+      margin-top: 40px;
+      text-align: center;
+    }
+    h3{
+      font-family: 'Poppins', sans-serif;
+    }
+
+
+
+
+
+
+    </style>
+  </head>
+  <body>
+    <div id="navbar">
+      <h1>Checkout | Cost: 100/seat</h1>
+      <!-- Display the wallet amount here inside h1 tag with id as "wallet". Note only amount, no extra text. Like 500 not Rs 500 -->
+      <h1 id="wallet">0</h1>
+    </div>
+    <div id="user-detail">
+      <!-- input field to accept user name with id as "user_name"  -->
+      <!-- input field to accept number of seats with id as "number_of_seats"  -->
+      <!-- A submit button to confirm booking with id as "confirm"  -->
+      <input id="user_name" type="text" placeholder="Enter Name">
+      <input id="number_of_seats" type="number" placeholder="Enter Number of Seats">
+      <br><br>
+      <button id="confirm">Submit</button>
+    </div>
+
+    <div id="movie">
+      <!-- Append the selected movie for booking here -->
+      <!-- movie should have title and image  -->
+      <!-- It should be the same movie you selected for booking  -->
+    </div>
+  </body>
+</html>
+<script>
+   let div = document.querySelector("#movie");
+  let movie = JSON.parse(localStorage.getItem("movie"));
+ 
+   let amount = localStorage.getItem("amount");
+   document.querySelector("#wallet").innerText=amount;
+
+  console.log(movie)
+
+  movie.forEach(function(el){
+             let img= document.createElement("img");
+             let h5 = document.createElement("h3");
+             img.src=el.url;
+             h5.innerText=el.title;
+             div.append(img,h5)
+
+  })
+
+  document.querySelector("#confirm").addEventListener("click",last)
+
+   let balance = document.querySelector("#wallet").value;
+    let seats = document.querySelector("#number_of_seats").value;
+
+    let finalbalance = Number(balance)*Number(seats)
+
+
+   function last(){
+      if(finalbalance <= amount)
+      {
+        alert("insufficient balance!")
+      }
+      else{
+        alert("Booking Succesful")
+      }
+
+      
+     
+   }
+
+
+
+
+
+
+
+
+</script>
